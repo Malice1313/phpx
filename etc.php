@@ -24,4 +24,10 @@
 			echo($_SESSION['phpx']['locale'][$line][$lang]);
 		}
 	}
+
+	///Replaces next lines by html </br>
+	function phpx_formatToHTML($str)
+	{
+		return str_replace("\n", "</br>", $str);
+	}
 ?>
