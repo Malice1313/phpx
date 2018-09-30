@@ -32,48 +32,51 @@
 			}
 			if($id>=0) {
 				$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['connected']=false;
-				$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['db']=NULL;
+				$db=NULL;
 				try {
 					if(strlen($_SESSION[$_SESSION['phpx']['project'].'database'][$id]['password'])>0)
-						$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['db']=new PDO("mysql:host=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['host'].";dbname=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['name'], $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['username'], $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['password']);
+						$db=new PDO("mysql:host=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['host'].";dbname=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['name'], $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['username'], $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['password']);
 					else
-						$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['db']=new PDO("mysql:host=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['host'].";dbname=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['name'], $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['username'], "");
-					if($_SESSION[$_SESSION['phpx']['project'].'database'][$id]['db']!=NULL)
+						$db=new PDO("mysql:host=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['host'].";dbname=".$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['name'], $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['username'], "");
+					if($db!=NULL)
 						$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['connected']=true;
 				}
 				catch(Exception $e) {
-					return false;
+					return NULL;
 				}
-				return true;
+				return $db;
 			}
 		}
-		return false;
+		return NULL;
 	}
 
 	//Checks if connected to database[name], returns its ID, else return -1
-	function phpx_dbConnected($name) {
+	function phpx_dbid($name) {
+		$id=-1;
 		$nb_db=count($_SESSION[$_SESSION['phpx']['project'].'database']);
 		if(isset($name) && $nb_db>0) {
 			$ct=0;
-			$id=-1;
 			foreach($_SESSION[$_SESSION['phpx']['project'].'database'] as $v) {
-				if($v['name']==$name)
+				if($v['name']==$name) {
 					$id=$ct;
+					break;
+				}
 				$ct++;
-			}
-			if(isset($_SESSION[$_SESSION['phpx']['project'].'database'][$id]['connected']) && $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['connected']>=0 && $_SESSION[$_SESSION['phpx']['project'].'database'][$id]['connected']<$nb_db)
-				return $id;
+			};
 		}
-		return -1;
+		return $id;
 	}
 
 
 	//Get a certain value from database
 	function phpx_dbGet($name, $table, $field) {
 		$ret=NULL;
-		if(isset($table) && isset($field) && phpx_dbConnected($name)) {
-			$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['db']->query("SET NAMES utf8");
-			$req=$_SESSION[$_SESSION['phpx']['project'].'database'][$id]['db']->query("SELECT * from ".$table);			
+		$db=phpx_dbConnect($name);
+		$id=phpx_dbid($name);
+		$ret=$id;
+		if(isset($table) && isset($field) && $db!=NULL && $id>=0) {
+			$db->query("SET NAMES utf8");
+			$req=$db->query("SELECT * from ".$table);
 			if(isset($req)) {
 				while($data=$req->fetch()) {
 					if(isset($data))
