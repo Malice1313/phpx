@@ -1,8 +1,16 @@
 <?php
+	/**
+		DEFINE USER VARS
+	**/
 	return array(
 		"project" => "PHPX",
-		"website_name" => "phpx.com",
+		"website" => "phpx.com",
 		"lang_list" => array("English", "Français"),
-		"locale" => include("locale.php")
+		"locale" => include("locale.php"),
+		"database" => array(
+			"host" => "localhost",
+			"username" =>"root",
+			"password" => ""
+		)
 	);
 ?>
