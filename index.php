@@ -19,6 +19,7 @@
 				echo("PHPX DB Name: [".$_SESSION[$_SESSION['phpx']['project'].'database'][0]['name']."]</br>");
 				echo("PHPX DB username: [".$_SESSION[$_SESSION['phpx']['project'].'database'][0]['username']."]</br>");
 				echo("PHPX DB password: [".$_SESSION[$_SESSION['phpx']['project'].'database'][0]['password']."]</br>");
+				phpx_dbRequest("phpx_".$_SESSION['phpx']['project'], "UPDATE phpx SET maintenance=0 WHERE id=1;");
 				$data=phpx_dbGet("phpx_".$_SESSION['phpx']['project'], "phpx");
 				foreach($data as $v)
 					echo("Maintenance mode: [".$v['maintenance']."]\n");

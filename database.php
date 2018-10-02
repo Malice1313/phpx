@@ -90,4 +90,15 @@
 		}
 		return $ret;
 	}
+
+	//Request the database
+	function phpx_dbRequest($name, $request) {
+		$db=phpx_dbConnect($name);
+		$id=phpx_dbid($name);
+		if(isset($request) && $id>=0) {
+			$db->query("SET NAMES utf8");
+			$db->query($request);
+		}
+	}
+
 ?>
