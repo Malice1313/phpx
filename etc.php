@@ -30,4 +30,12 @@
 	{
 		return str_replace("\n", "</br>", $str);
 	}
+
+	//Redirection
+	function phpx_redirect($url) {
+		if(isset($url) && strlen($url)>0) {
+			header('Location: '.$url);
+	   		die();
+	   	}
+	}
 ?>
