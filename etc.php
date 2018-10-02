@@ -45,7 +45,6 @@
 			$nb_js=0;
 			$nb_js=count($js_array);
 			if($nb_js>0) {
-				echo("\n");
 				foreach($js_array as $js)
 					echo("\t\t<script src='".$js."'></script>\n");
 			}
@@ -58,7 +57,6 @@
 			$nb_css=0;
 			$nb_css=count($css_array);
 			if($nb_css>0) {
-				echo("\n");
 				foreach($css_array as $css)
 					echo("\t\t<link rel='stylesheet' href='".$css."'>\n");
 			}

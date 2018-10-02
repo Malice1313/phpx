@@ -24,6 +24,9 @@
 		echo("\t\t<meta name='description' content='".$description."'>\n");
 		//Mobile specific metas
 		echo("\t\t<meta name='viewport' content='width=device-width, initial-scale=1'>\n");
+		//Website icons
+		echo("\t\t<link rel='shortcut icon' href='logo.png' type='image/x-icon'>\n");
+		echo("\t\t<link rel='icon' href='logo.png' type='image/x-icon'>\n");
 		//Load js and css
 		phpx_loadCSS($css_array);
 		phpx_loadJS($js_array);
