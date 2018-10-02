@@ -8,9 +8,10 @@
 	$_SESSION['phpx']=include("defines.php");
 	include("database.php");
 	include("etc.php");
+	include("logs.php");
 
 	//Prints head content
-	function phpx_head($title, $author, $description, $css_array, $js_array) {
+	function phpx_head($title, $author, $description) {
 		echo("<meta charset='utf-8'/>\n");
 		//Set title
 		if(isset($title) && strlen($title)>0)
@@ -27,9 +28,14 @@
 		//Website icons
 		echo("\t\t<link rel='shortcut icon' href='logo.png' type='image/x-icon'>\n");
 		echo("\t\t<link rel='icon' href='logo.png' type='image/x-icon'>\n");
-		//Load js and css
-		phpx_loadCSS($css_array);
-		phpx_loadJS($js_array);
+	}
+
+
+	function phpx_start($page) {
+		if(!isset($page)) $page="phpx_unknownpage.php";
+
+		phpx_logPush("Viewing ".$page, 0);
+
 	}
 
 
@@ -50,5 +56,8 @@
 	//Load PHPX specific database
 	phpx_dbNew($_SESSION['phpx']['database']['host'], "phpx_".$_SESSION['phpx']['project'], $_SESSION['phpx']['database']['username'], $_SESSION['phpx']['database']['password']);
 	phpx_dbConnect("phpx_".$_SESSION['phpx']['project']);
+
+	//Log client in DB
+	phpx_logClient();
 
 ?>

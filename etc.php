@@ -62,4 +62,63 @@
 			}
 		}
 	}
+
+	//Returns client current IP
+	function phpx_getIP() {
+		if(isset($_SERVER['REMOTE_ADDR'])) {
+			return $_SERVER['REMOTE_ADDR'];
+		}
+		return "Unknown";
+	}
+
+	//Downloads a file
+	function phpx_download($file)
+	{
+		if(isset($file))
+		{
+			$f="file/".$file;
+			if(file_exists($f))
+			{
+				header("Content-Description: File Transfer");
+				header("Content-Type: text/plain");
+				header("Content-Disposition: attachment; filename=".basename($f));
+				header("Expires: 0");
+				header("Cache-Control: must-revalidate");
+				header("Pragma: public");
+				header("Content-Length: ". filesize($f));
+				readfile($f);
+				exit();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//Creates a directory
+	function phpx_mkdir($path)
+	{
+		if(isset($path)&& !file_exists($path))
+		{
+			mkdir($path);
+			return true;
+		}
+		return false;
+	}
+
+	//Creates a file with given content
+	function phpx_mkfile($path, $content)
+	{
+		if(isset($title) && isset($content))
+		{
+			$f=fopen($path, "w+");
+			if($f)
+			{
+				fwrite($f, $content);
+				fclose($f);
+				return true;
+			}
+		}
+		return false;
+	}
+
 ?>

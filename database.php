@@ -51,7 +51,7 @@
 	}
 
 	//Checks if connected to database[name], returns its ID, else return -1
-	function phpx_dbid($name) {
+	function phpx_dbID($name) {
 		$id=-1;
 		$nb_db=count($_SESSION[$_SESSION['phpx']['project'].'database']);
 		if(isset($name) && $nb_db>0) {
@@ -69,15 +69,15 @@
 
 
 	//Get a certain value from database
-	function phpx_dbGet($name, $table) {
+	function phpx_dbGet($name, $request) {
 		$ret=array();
 		$db=phpx_dbConnect($name);
-		$id=phpx_dbid($name);
-		if(isset($table) && $id>=0) {
+		$id=phpx_dbID($name);
+		if(isset($request) && $id>=0) {
 			$i=0;
 			$db->query("SET NAMES utf8");
-			$req=$db->query("SELECT * from ".$table);
-			if(isset($req)) {
+			$req=$db->query($request);
+			if(isset($req) && $req!=false) {
 				$data=array();
 				while($data=$req->fetch()) {
 					if(isset($data)) {
@@ -94,7 +94,7 @@
 	//Request the database
 	function phpx_dbRequest($name, $request) {
 		$db=phpx_dbConnect($name);
-		$id=phpx_dbid($name);
+		$id=phpx_dbID($name);
 		if(isset($request) && $id>=0) {
 			$db->query("SET NAMES utf8");
 			$db->query($request);
