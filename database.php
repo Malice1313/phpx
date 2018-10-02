@@ -69,19 +69,21 @@
 
 
 	//Get a certain value from database
-	function phpx_dbGet($name, $table, $field) {
-		$ret=NULL;
+	function phpx_dbGet($name, $table) {
+		$ret=array();
 		$db=phpx_dbConnect($name);
 		$id=phpx_dbid($name);
-		$ret=$id;
-		if(isset($table) && isset($field) && $db!=NULL && $id>=0) {
+		if(isset($table) && $id>=0) {
+			$i=0;
 			$db->query("SET NAMES utf8");
 			$req=$db->query("SELECT * from ".$table);
 			if(isset($req)) {
+				$data=array();
 				while($data=$req->fetch()) {
-					if(isset($data))
-						$ret=$data[$field];
-					break;
+					if(isset($data)) {
+						$ret[$i]=$data;
+						$i++;
+					}
 				}
 				$req->closeCursor();
 			}

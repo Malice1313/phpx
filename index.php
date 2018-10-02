@@ -19,7 +19,9 @@
 				echo("PHPX DB Name: [".$_SESSION[$_SESSION['phpx']['project'].'database'][0]['name']."]</br>");
 				echo("PHPX DB username: [".$_SESSION[$_SESSION['phpx']['project'].'database'][0]['username']."]</br>");
 				echo("PHPX DB password: [".$_SESSION[$_SESSION['phpx']['project'].'database'][0]['password']."]</br>");
-				echo("Maintenance mode: [".phpx_dbGet("phpx_".$_SESSION['phpx']['project'], "phpx", "maintenance")."]</br>");
+				$data=phpx_dbGet("phpx_".$_SESSION['phpx']['project'], "phpx");
+				foreach($data as $v)
+					echo("Maintenance mode: [".$v['maintenance']."]\n");
 			?>
 		</p>
 	</BODY>
