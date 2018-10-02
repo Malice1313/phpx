@@ -28,14 +28,15 @@
 		//Website icons
 		echo("\t\t<link rel='shortcut icon' href='logo.png' type='image/x-icon'>\n");
 		echo("\t\t<link rel='icon' href='logo.png' type='image/x-icon'>\n");
+		//Load phpx styles
+		phpx_loadCSS(array("phpx/phpx.css"));
 	}
 
 
+	//Call it in beginning of each page
 	function phpx_start($page) {
 		if(!isset($page)) $page="phpx_unknownpage.php";
-
 		phpx_logPush("Viewing ".$page, 0);
-
 	}
 
 
