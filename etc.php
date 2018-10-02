@@ -38,4 +38,30 @@
 	   		die();
 	   	}
 	}
+
+	//Load javascript files from an array of given filepath
+	function phpx_loadJS($js_array) {
+		if(isset($js_array)) {
+			$nb_js=0;
+			$nb_js=count($js_array);
+			if($nb_js>0) {
+				echo("\n");
+				foreach($js_array as $js)
+					echo("\t\t<script src='".$js."'></script>\n");
+			}
+		}
+	}
+
+	//Load css files from an array of given filepath
+	function phpx_loadCSS($css_array) {
+		if(isset($css_array)) {
+			$nb_css=0;
+			$nb_css=count($css_array);
+			if($nb_css>0) {
+				echo("\n");
+				foreach($css_array as $css)
+					echo("\t\t<link rel='stylesheet' href='".$css."'>\n");
+			}
+		}
+	}
 ?>

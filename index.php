@@ -5,11 +5,14 @@
 <HTML>
 	<HEAD>
 		<?php
-			phpx_head("Home");
+			$css=array(
+				"style.css"
+			);
+			phpx_head("Home", "Malice13", "Testpage for phpx framework", $css, NULL);
 		?>
 	</HEAD>
 	<BODY>
-		<center><h1><?php phpx_print(0); ?></h1></center>
+		<center><h1 class='phpx_blue'><?php phpx_print(0); ?></h1></center>
 		<p>
 			<?php
 				echo("Current LANG: [".$_SESSION[$_SESSION['phpx']['project'].'current_lang']."]</br>");
