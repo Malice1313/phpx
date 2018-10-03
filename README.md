@@ -1,2 +1,2 @@
 # phpx
-PHPX is a little framework full of handy functions used by websites
+PHPX is a little framework with a set of functions to make website backend development a little bit easier.
